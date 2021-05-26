@@ -3,7 +3,7 @@
         <!-- Loop trough the array 
         annd show what the task comp says.
         -->
-        <Task :task="task" />
+        <Task @toggle-reminder="$emit('toggle-reminder', task.id)" @delete-task="$emit('delete-task', task.id)" :task="task" />
     </div>
 </template>
 
@@ -17,6 +17,7 @@ export default {
     },
     components: {
        Task,  
-    }
+    },
+    emits: ['delete-task', 'toggle-reminder'],
 }
 </script>

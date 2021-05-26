@@ -2,7 +2,8 @@
   <div class="container">
     <Header title="Stanley"/>
     <!--send the array as a prop to Task comp.-->
-    <Tasks :tasks="tasks"/>
+    <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" 
+    :tasks="tasks"/>
   </div>
   
 
@@ -11,6 +12,7 @@
 <script>
 import Header from './components/Header'
 import Tasks from './components/Tasks'
+import Task from './components/AddTask'
 
 export default {
   name: 'App',
@@ -22,6 +24,22 @@ export default {
     return {
       tasks: []
     }
+  },
+  methods: {
+      deleteTask(id) {
+          console.log('task', id);
+          if (confirm('Are you sure')) {
+            this.tasks = this.tasks.filter((task) => task.id !== id)
+          }
+          
+      },
+
+      toggleReminder(id){
+        console.log(id)
+        this.tasks = this.tasks.map((task) =>
+        //an array of objects (...task) where the task sent is going to be the opposite.
+        task.id === id ? {...task, reminder: !task.reminder} : task )
+      },
   },
   created() {
     this.tasks = [
