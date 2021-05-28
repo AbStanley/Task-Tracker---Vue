@@ -1,39 +1,43 @@
 <template>
-    <header>
-        <div>
-            <h1>Task Tracker</h1>
-            <h2>{{ title }}</h2>
-        </div>
-        <Button text="Add Task" color="Green"/>
-        <Button text="Update task" color="Orange"/>
-        <Button text="Remove task" color="Red"/>
-        
-    </header>
+  <header>
+    <h1>{{ title }}</h1>
+    <Button
+      v-show="homePage"
+      @btn-click="$emit('toggle-add-task')"
+      :text="showAddTask ? 'Close' : 'Add Task'"
+      :color="showAddTask ? 'red' : 'green'"
+    />
+  </header>
 </template>
 
 <script>
 import Button from './Button'
-
 export default {
-    name: 'Header',
-    components: {
-        Button,
+  name: 'Header',
+  props: {
+    title: String,
+    showAddTask: Boolean,
+  },
+  components: {
+    Button,
+  },
+  computed: {
+    homePage() {
+      if (this.$route.path === '/') {
+        return true
+      } else {
+        return false
+      }
     },
-    props: {
-        title: { 
-            type: String,
-            default: 'Guess',
-        },
-    },
+  },
 }
 </script>
 
 <style scoped>
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        }
-
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 </style>

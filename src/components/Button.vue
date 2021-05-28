@@ -12,6 +12,7 @@ export default {
     methods: {
         onClick() {
             console.log(this.$props.text + ' was clicked')
+            this.$emit('btn-click')
         },
     }
 }
